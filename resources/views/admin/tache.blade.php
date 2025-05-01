@@ -8,10 +8,10 @@
             <div class="col-xl-12 col-sm-12 col-12 mb-4">
                 <div class="breadcrumb-path">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('index') }}"><img src="{{ asset('img/dash.png') }}" class="mr-2" alt="breadcrumb">Home</a></li>
-                        <li class="breadcrumb-item active">Tasks</li>
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}"><img src="{{ asset('img/dash.png') }}" class="mr-2" alt="breadcrumb">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active">Tâches</li>
                     </ul>
-                    <h3>Tasks</h3>
+                    <h3>Tâches</h3>
                 </div>
             </div>
             <div class="col-xl-12 col-sm-12 col-12 mb-4">
@@ -19,7 +19,7 @@
                     <ul>
                         {{-- <li><a class="active" href="#">Overview</a></li> --}}
                     </ul>
-                    <a class="btn-add"href="{{ route('taches.create') }}">Create Task</a>
+                    <a class="btn-add"href="{{ route('taches.create') }}">Créer une tache</a>
                 </div>
             </div>
             <div class="col-xl-12 col-sm-12 col-12">
@@ -50,7 +50,7 @@
                                         <td>{{ $counter++ }}</td>
                                         <td><label>{{ $task->title }}</label></td>
                                         <td><label>{{ $task->description }}</label></td>
-                                        <td><label>{{ $task->Project->name }}</label></td>
+                                       <td><label>{{ $task->Project->name ?? 'NA' }}</label></td>
                                         <td><label>{{ \Carbon\Carbon::parse($task->due_date)->format('d/m/Y') }}</label></td> 
                                         <td>
                                             <div class="table-img">

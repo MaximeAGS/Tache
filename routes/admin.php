@@ -68,9 +68,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('admin')->middleware('auth')->controller(ProjectController::class)->group(function () {
         Route::get('/projets', 'index')->name('manage');
-        Route::get('/projets/{id}/', 'edit')->name('taches.edit');
-        Route::put('/projets/{projet}', 'update')->name('taches.update');
-        Route::delete('/projet/{id}', 'destroy')->name('taches.destroy');
+        Route::get('/projets/create',  'create')->name('projets.create');
+        Route::post('/projet/store',  'store')->name('projets.store');
+        Route::get('/projets/{id}/', 'edit')->name('projets.edit');
+        Route::put('/projets/{projet}', 'update')->name('projets.update');
+        Route::delete('/projets/{id}', 'destroy')->name('projets.destroy');
     });
 
 

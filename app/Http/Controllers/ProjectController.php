@@ -42,34 +42,68 @@ class ProjectController extends Controller
         return view('admin.projet', compact('projects', 'departments', 'statuses'));
     }
 
-    public function update(Request $request, Department $projet)
+    public function update(Request $request, Projet $projet)
     {
-        //if ($projet->status_id == 1) {
-
-        //    return back()->with('notify', [
-        //        'type' => 'error',
-        //        'message' => 'La tâche ne peut pas être modifiée car son statut est complété.'
-        //    ]);
-        //}
+        // Validation des données envoyées par le formulaire
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date', 
-            'department_id' => 'required|exists:departments,id',
-            'status' => 'required|in:not_started,in_progress,on_hold,completed' ,
- 
+            'start_date' => 'nullable|date',  
+            'end_date' => 'nullable|date',    
+            'department_id' => 'nullable|exists:departments,id', 
+            'status' => 'required|in:not_started,in_progress,on_hold,completed',
         ]);
-
 
         $projet->fill($validated);
 
-        // Sauvegarder la tâche
         $projet->save();
 
         return back()->with('notify', [
             'type' => 'success',
-            'message' => 'Tâche mise à jour avec succès'
+            'message' => 'Projet mis à jour avec succès',
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        Projet::findOrFail($id)->delete();
+        return back()->with('notify', [
+            'type' => 'success',
+            'message' => 'Tâche supprimée avec succès'
+        ]);
+    }
+
+    public function create()
+    {
+        $Departements = Department::orderBy('name')->get(); 
+
+        return view('admin.create_project', compact('Departements'));
+    }
+
+    public function store(Request $request)
+    {
+        // Validation des données
+        $validated = $request->validate([
+            'name' => 'required|string|max:255', 
+            'description' => 'nullable|string',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'departement_id' => 'required|exists:departments,id',
+        ]);
+
+        // Création de la tâche
+        $projet = new Projet();
+        $projet->name = $validated['name']; 
+        $projet->description = $validated['description'];
+        $projet->start_date = $validated['start_date'];
+        $projet->end_date = $validated['end_date'];
+        $projet->department_id = $validated['departement_id']; 
+        $projet->save();
+
+        // Rediriger vers la page de la liste des tâches
+        return redirect()->route('manage')->with('notify', [
+            'type' => 'success',
+            'message' => 'Projet crée avec succès'
         ]);
     }
 }

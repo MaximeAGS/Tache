@@ -8,10 +8,10 @@
             <div class="col-xl-12 col-sm-12 col-12 mb-4">
                 <div class="breadcrumb-path">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('index') }}"><img src="{{ asset('img/dash.png') }}" class="mr-2" alt="breadcrumb">Home</a></li>
-                        <li class="breadcrumb-item active">Tasks</li>
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}"><img src="{{ asset('img/dash.png') }}" class="mr-2" alt="breadcrumb">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active">Projets</li>
                     </ul>
-                    <h3>Tasks</h3>
+                    <h3>Projets</h3>
                 </div>
             </div>
             <div class="col-xl-12 col-sm-12 col-12 mb-4">
@@ -19,7 +19,7 @@
                     <ul>
                         {{-- <li><a class="active" href="#">Overview</a></li> --}}
                     </ul>
-                    <a class="btn-add"href="{{ route('taches.create') }}">Create Task</a>
+                    <a class="btn-add"href="{{ route('projets.create') }}">Créer un projet</a>
                 </div>
             </div>
             <div class="col-xl-12 col-sm-12 col-12">
@@ -216,7 +216,7 @@
         var departmentId = $(this).data('department'); 
 
         // Mettre à jour l'URL du formulaire pour inclure l'ID de la tâche
-        $('#editTaskForm').attr('action', '/admin/taches/' + projetId); 
+        $('#editTaskForm').attr('action', '/admin/projets/' + projetId); 
 
         // Remplir les champs du modal avec les données
         $('#edit-name').val(name);
@@ -233,8 +233,8 @@
 <script>
     $(document).ready(function () {
         $('.delete-btn').on('click', function () {
-            var taskId = $(this).data('id');
-            var actionUrl = '/admin/taches/' + projetId;
+            var projetId = $(this).data('id');
+            var actionUrl = '/admin/projets/' + projetId;
             $('#deleteForm').attr('action', actionUrl);
         });
     });
